@@ -1,0 +1,27 @@
+Package: GenoTypeR
+Title: Tool for Genetic Data Management
+Version: 1.0.0
+Authors@R: 
+    person("Maria Claudia", "Savina", , "mariaclaudia.savina@mail.polimi.it", 
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0009-0008-0280-0630"))
+Description: GenoTypeR is a comprehensive tool designed for managing and 
+    analyzing genetic data. It includes a robust framework with data structures 
+    for various gene types. The package introduces a suite of S4 classes that 
+    represent various gene categories, including protein-coding genes, 
+    long non-coding RNA genes, microRNA genes and many more, ensuring versatily 
+    accross genomic studies. GenoTypeR also includes specific functions 
+    such as 'lengthProduct' which returns the length of the product 
+    of a specific gene object.
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: R (>= 4.3)
+Imports: methods, GenomicRanges, Biostrings, IRanges, S4Vectors
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
+biocViews: Software, Genetics, GeneExpression, DataRepresentation,
+        BiomedicalInformatics, Transcriptomics, SequenceMatching,
+        Annotation
+VignetteBuilder: knitr
+Config/testthat/edition: 3

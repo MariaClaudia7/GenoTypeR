@@ -1,0 +1,103 @@
+---
+title: "GenoTypeR - Tool for Genetic Data Management"
+author: "Maria Claudia Savina"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{GenoTypeR - Tool for Genetic Data Management}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+`GenoTypeR` is an R package developed to provide tools for managing genetic data through an object-oriented approach using S4 classes. 
+This package facilitates the representation and manipulation of different types of genetic information by defining several gene-specific classes, each tailored to particular types of genetics data.
+
+## Classes
+
+The package defines a virtual base class `Gene`, which serves as a fundation for other gene-specific classes.
+This class includes common attributes such as:
+- `Gene`: A unique identifier for the gene.
+- `symbol`: A gene symbol.
+- `name`: The full name of the gene.
+- `description`: A brief description of the gene.
+- `structure`: Genomic structure represented as a `GRanges` object.
+
+From this base class, several specialized classes inherit, including:
+- `ProteinCodingGene`
+- `LongNonCodingRNAGene`
+- `PiwiInteractingRNAGene`
+- `MicroRNAGene`
+- `RibosomialRNAGene`
+- `TransferRNAGene`
+- `SmallNuclearRNAGene`
+- `SRPRNAGene`
+
+## Functions
+`GenoTypeR` includes a variety of functions such as:
+- **Constructor functions** for each class, allowing users to instantiate gene objects.
+- **Accessor functions** for safely accessing and modifying gene attricutes without directly manipulating object slots.
+- **`lengthProduct` functions**: A class-specific function that calculates the length of the genetic product associated with a gene object.
+
+# Setup
+
+Load the necessary libraries to utilize the `GenoTypeR` package:
+
+```{r setup}
+options(rmarkdown.html_vignette.check_title = FALSE)
+
+library(GenoTypeR)
+library(Biostrings)
+library(GenomicRanges)
+library(knitr)
+```
+
+# Create Gene Objects
+
+```{r}
+# Creating a GRanges object for the genomic structure of the MTOR gene
+mtor_structure <- GRanges(
+  seqnames = Rle("chr1"), # Chromosome 1 for example
+  ranges = IRanges(start = 11106531, end = 11198322),
+  strand = Rle("+")
+)
+
+# Create a gene object using the constructor provided by GenoTypeR
+
+mtor_gene <- ProteinCodingGene(
+  geneID = "2475",
+  symbol = "MTOR",
+  name = "Mechanistic Target Of Rapamycin Kinase",
+  description = "Serine/threonine protein kinase",
+  structure = mtor_structure,
+  proteinID = "P42345",
+  proteinSequence = "MEEPQ..."
+)
+```
+
+# Calculating Product Length
+
+```{r}
+product_length <- lengthProduct(mtor_gene)
+```
+
+# Summary
+
+This vignette provides a brief introduction to the `GenoTypeR` package, 
+illustrating how to create gene objects, access and modify their attributes, 
+and calculate the length of the gene products.
+For more detailed information, consult the package documentation.
+
+## Session Info
+
+```{r}
+sessionInfo()
+```
